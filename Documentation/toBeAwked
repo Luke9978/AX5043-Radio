@@ -1,0 +1,676 @@
+                                                       www.onsemi.com
+                                                                  20
+                                                                 AND9347/D
+REGISTER OVERVIEW
+ Table 22. CONTROL REGISTER MAP
+ Addr                                                                              Bit
+  Hex          Name            Dir  R   Reset      7           6         5      4         3          2      1    0        Description
+ Revision & Interface Probing
+ 000     REVISION             R    R  01010001 SILICONREV(7:0)                                                         Silicon Revision
+ 001     SCRATCH              RW   R  11000101 SCRATCH(7:0)                                                            Scratch Register
+ Operating Mode
+ 002     PWRMODE              RW   R  011−0000 RST        REFEN      XOEN   WDS        PWRMODE(3:0)                    Power Mode
+ Voltage Regulator
+ 003     POWSTAT              R    R  −−−−−−−− SSUM       SREF       SVREF  SVANA      SV       SBE     SBEV  SVIO     Power
+                                                                                       MODEM    VANA    MODEM          Management
+                                                                                                                       Status
+ 004     POWSTICKYSTAT        R    R  −−−−−−−− SSSUM      SSREF      SSVREF SSVANA     SSV      SS      SSBEV SSVIO    Power
+                                                                                       MODEM    BEVANA  MODEM          Management
+                                                                                                                       Sticky Status
+ 005     POWIRQMASK           RW   R  00000000 MPWR       MSREF      MSVREF MS VANA    MSV      MS      MSBEV MSVIO    Power
+                                               GOOD                                    MODEM    BE VANA MODEM          Management
+                                                                                                                       Interrupt Mask
+ Interrupt Control
+ 006     IRQMASK1             RW   R  −−−00000 −          −          −      IRQMASK(12:8)                              IRQ Mask
+ 007     IRQMASK0             RW   R  00000000 IRQMASK(7:0)                                                            IRQ Mask
+ 008     RADIOEVENTMAS        RW   R  −−−−−−−0 −          −          −      −          −        −       −     RADIO    Radio Event
+         K1                                                                                                   EVENT    Mask
+                                                                                                              MASK (8)
+ 009     RADIOEVENTMAS        RW   R  00000000 RADIO EVENT MASK (7:0)                                                  Radio Event
+         K0                                                                                                            Mask
+ 00A     IRQINVERSION1        RW   R  −−−00000 −          −          −      IRQINVERSION (12:8)                        IRQ Inversion
+ 00B     IRQINVERSION0        RW   R  00000000 IRQINVERSION (7:0)                                                      IRQ Inversion
+ 00C     IRQREQUEST1          R    R  −−−−−−−− −          −          −      IRQREQUEST (12:8)                          IRQ Request
+ 00D     IRQREQUEST0          R    R  −−−−−−−− IRQREQUEST (7:0)                                                        IRQ Request
+ 00E     RADIOEVENTREQ        R       −−−−−−−− −          −          −      −          −        −       −     RADIO    Radio Event
+         1                                                                                                    EVENT    Request
+                                                                                                              REQ(8)
+ 00F     RADIOEVENTREQ        R       −−−−−−−− RADIO EVENT REQ (7:0)                                                   Radio Event
+         0                                                                                                             Request
+ Modulation & Framing
+ 010     MODULATION           RW   R  −−−01000 −          −          −      RX HALF    MODULATION(3:0)                 Modulation
+                                                                            SPEED
+ 011     ENCODING             RW   R  −−−00010 −          −          −      ENC        ENC      ENC     ENC   ENC INV  Encoder/Decoder
+                                                                            NOSYNC     MANCH    SCRAM   DIFF           Settings
+ 012     FRAMING              RW   R  −0000000 FRMRX      CRCMODE (2:0)                FRMMODE (2:0)          FABORT   Framing settings
+ 014     CRCINIT3             RW   R  11111111 CRCINIT (31:24)                                                         CRC Initialisation
+                                                                                                                       Data
+ 015     CRCINIT2             RW   R  11111111 CRCINIT (23:16)                                                         CRC Initialisation
+                                                                                                                       Data
+ 016     CRCINIT1             RW   R  11111111 CRCINIT (15:8)                                                          CRC Initialisation
+                                                                                                                       Data
+ 017     CRCINIT0             RW   R  11111111 CRCINIT (7:0)                                                           CRC Initialisation
+                                                                                                                       Data
+                                                               www.onsemi.com
+                                                                        21
+                                                             AND9347/D
+Table 22. CONTROL REGISTER MAP(continued)
+Addr                                                                             Bit
+ Hex          Name        Dir  R   Reset      7           6         5         4          3         2          1        0      Description
+Forward Error Correction
+018    FEC               RW   R  00000000 SHORT      RSTVI    FEC NEG     FEC POS    FECINPSHIFT (2:0)             FEC ENA FEC (Viterbi)
+                                          MEM        TERBI                                                                 Configuration
+019    FECSYNC           RW   R  01100010 FECSYNC (7:0)                                                                    Interleaver
+                                                                                                                           Synchronisation
+                                                                                                                           Threshold
+01A    FECSTATUS         R    R  −−−−−−−− FEC INV    MAXMETRIC (6:0)                                                       FEC Status
+Status
+01C    RADIOSTATE        R    −  −−−−0000 −          −        −           −          RADIOSTATE (3:0)                      Radio Controller
+                                                                                                                           State
+01D    XTALSTATUS        R    R  −−−−−−−− −          −        −           −          −         −           −       XTAL    Crystal Oscillator
+                                                                                                                   RUN     Status
+Pin Configuration
+020    PINSTATE          R    R  −−−−−−−− −          −        PS PWR      PS ANT     PS IRQ    PS DATA     PS DCLK PS SYS  Pinstate
+                                                              AMP         SEL                                      CLK
+021    PINFUNCSYSCLK     RW   R  0−−01000 PU         −        −           PFSYSCLK (4:0)                                   SYSCLK Pin
+                                          SYSCLK                                                                           Function
+022    PINFUNCDCLK       RW   R  00−−−100 PU DCLK    PI DCLK  −           −          −         PFDCLK (2:0)                DCLK Pin
+                                                                                                                           Function
+023    PINFUNCDATA       RW   R  10−−−111 PU DATA    PI DATA  −           −          −         PFDATA (2:0)                DATA Pin
+                                                                                                                           Function
+024    PINFUNCIRQ        RW   R  00−−−011 PU IRQ     PI IRQ   −           −          −         PFIRQ (2:0)                 IRQ Pin Function
+025    PINFUNCANTSEL     RW   R  00−−−110 PU         PI       −           −          −         PFANTSEL (2:0)              ANTSEL Pin
+                                          ANTSEL     ANTSEL                                                                Function
+026    PINFUNCPWRAMP     RW   R  00−−0110 PU         PI       −           −          PFPWRAMP(3:0)                         PWRAMP Pin
+                                          PWRAMP     PWRAMP                                                                Function
+027    PWRAMP            RW   R  −−−−−−−0 −          −        −           −          −         −           −       PWRAMP  PWRAMP Control
+FIFO
+028    FIFOSTAT          R    R  0−−−−−−− FIFO       −        FIFO FREE   FIFO       FIFO      FIFO        FIFO    FIFO    FIFO Control
+                                          AUTO                THR         CNT THR    OVER      UNDER       FULL    EMPTY
+                                          COMMIT
+                         W                           −        FIFOCMD (5:0)
+029    FIFODATA          RW      −−−−−−−− FIFODATA (7:0)                  FIFO
+                                                                          Data
+02A    FIFOCOUNT1        R    R  −−−−−−−0 −          −        −           −          −         −           −       FIFO    Number of Words
+                                                                                                                   COUNT   currently in FIFO
+                                                                                                                   (8)
+02B    FIFOCOUNT0        R    R  00000000 FIFOCOUNT (7:0)                                                                  Number of Words
+                                                                                                                           currently in FIFO
+02C    FIFOFREE1         R    R  −−−−−−−1 −          −        −           −          −         −           −       FIFO    Number of Words
+                                                                                                                   FREE(8) that can be
+                                                                                                                           written to FIFO
+02D    FIFOFREE0         R    R  00000000 FIFOFREE (7:0)                                                                   Number of Words
+                                                                                                                           that can be
+                                                                                                                           written to FIFO
+02E    FIFOTHRESH1       RW   R  −−−−−−−0 −          −        −           −          −         −           −       FIFO    FIFO Threshold
+                                                                                                                   THRESH
+                                                                                                                   (8)
+02F    FIFOTHRESH0       RW   R  00000000 FIFOTHRESH (7:0)                                                                 FIFO Threshold
+                                                          www.onsemi.com
+                                                                  22
+                                                        AND9347/D
+Table 22. CONTROL REGISTER MAP(continued)
+Addr                                                                    Bit
+ Hex          Name    Dir  R   Reset      7          6        5      4         3          2       1          0      Description
+Synthesizer
+030     PLLLOOP      RW   R  0−−−1001 FREQB      −        −       −         DIRECT    FILT EN FLT (1:0)          PLL Loop Filter
+                                                                                                                 Settings
+031     PLLCPI       RW   R  00001000 PLLCPI                                                                     PLL Charge
+                                                                                                                 Pump Current
+                                                                                                                 (Boosted)
+032     PLLVCODIV    RW   R  −000−000 −          VCOI     VCO2INT VCOSEL    −         RFDIV   REFDIV (1:0)       PLL Divider
+                                                 MAN                                                             Settings
+033     PLLRANGINGA  RW   R  00001000 STICKY     PLL LOCK RNGERR  RNG       VCORA (3:0)                          PLL Autoranging
+                                      LOCK                        START
+034     FREQA3       RW   R  00111001 FREQA (31:24)                                                              Synthesizer
+                                                                                                                 Frequency
+035     FREQA2       RW   R  00110100 FREQA (23:16)                                                              Synthesizer
+                                                                                                                 Frequency
+036     FREQA1       RW   R  11001100 FREQA (15:8)                                                               Synthesizer
+                                                                                                                 Frequency
+037     FREQA0       RW   R  11001101 FREQA (7:0)                                                                Synthesizer
+                                                                                                                 Frequency
+038     PLLLOOPBOOST RW   R  0−−−1011 FREQB      −        −       −         DIRECT    FILT EN FLT (1:0)          PLL Loop Filter
+                                                                                                                 Settings
+                                                                                                                 (Boosted)
+039     PLLCPIBOOST  RW   R  11001000 PLLCPI                                                                     PLL Charge
+                                                                                                                 Pump Current
+03B     PLLRANGINGB  RW   R  00001000 STICKY     PLL LOCK RNGERR  RNG       VCORB (3:0)                          PLL Autoranging
+                                      LOCK                        START
+03C     FREQB3       RW   R  00111001 FREQB (31:24)                                                              Synthesizer
+                                                                                                                 Frequency
+03D     FREQB2       RW   R  00110100 FREQB (23:16)                                                              Synthesizer
+                                                                                                                 Frequency
+03E     FREQB1       RW   R  11001100 FREQB (15:8)                                                               Synthesizer
+                                                                                                                 Frequency
+03F     FREQB0       RW   R  11001101 FREQB (7:0)                                                                Synthesizer
+                                                                                                                 Frequency
+Signal Strength
+040     RSSI         R    R  −−−−−−−− RSSI (7:0)                                                                 Received Signal
+                                                                                                                 Strength Indicator
+041     BGNDRSSI     RW   R  00000000 BGNDRSSI (7:0)                                                             Background RSSI
+042     DIVERSITY    RW   R  −−−−−−00 −          −        −       −         −         −       ANT SEL    DIV ENA Antenna Diversity
+                                                                                                                 Configuration
+043     AGCCOUNTER   RW   R  −−−−−−−− AGCCOUNTER (7:0)                                                           AGC Current
+                                                                                                                 Value
+Receiver Tracking
+045     TRKDATARATE2 R    R  −−−−−−−− TRKDATARATE (23:16)                                                        Datarate Tracking
+046     TRKDATARATE1 R    R  −−−−−−−− TRKDATARATE (15:8)                                                         Datarate Tracking
+047     TRKDATARATE0 R    R  −−−−−−−− TRKDATARATE (7:0)                                                          Datarate Tracking
+048     TRKAMPL1     R    R  −−−−−−−− TRKAMPL (15:8)                                                             Amplitude
+                                                                                                                 Tracking
+049     TRKAMPL0     R    R  −−−−−−−− TRKAMPL (7:0)                                                              Amplitude
+                                                                                                                 Tracking
+04A     TRKPHASE1    R    R  −−−−−−−− −          −        −       −         TRKPHASE (11:8)                      Phase Tracking
+04B     TRKPHASE0    R    R  −−−−−−−− TRKPHASE (7:0)                                                             Phase Tracking
+                                                     www.onsemi.com
+                                                             23
+                                                             AND9347/D
+Table 22. CONTROL REGISTER MAP(continued)
+Addr                                                                               Bit
+ Hex          Name         Dir  R   Reset      7          6           5       4           3         2    1 0    Description
+Receiver Tracking
+04D    TRKRFFREQ2         RW   R  −−−−−−−− −           −         −        −            TRRFKFREQ (19:16)     RF Frequency
+                                                                                                             Tracking
+04E    TRKRFFREQ1         RW   R  −−−−−−−− TRRFKFREQ (15:8)                                                  RF Frequency
+                                                                                                             Tracking
+04F    TRKRFFREQ0         RW   R  −−−−−−−− TRRFKFREQ (7:0)                                                   RF Frequency
+                                                                                                             Tracking
+050    TRKFREQ1           RW   R  −−−−−−−− TRKFREQ (15:8)                                                    Frequency
+                                                                                                             Tracking
+051    TRKFREQ0           RW   R  −−−−−−−− TRKFREQ (7:0)                                                     Frequency
+                                                                                                             Tracking
+052    TRKFSKDEMOD1       R    R  −−−−−−−− −           −         TRKFSKDEMOD (13:8)                          FSK Demodulator
+                                                                                                             Tracking
+053    TRKFSKDEMOD0       R    R  −−−−−−−− TRKFSKDEMOD (7:0)                                                 FSK Demodulator
+                                                                                                             Tracking
+Timer
+059    TIMER2             R    −  −−−−−−−− TIMER (23:16)                                                     1 MHz Timer
+05A    TIMER1             R    −  −−−−−−−− TIMER (15:8)                                                      1 MHz Timer
+05B    TIMER0             R    −  −−−−−−−− TIMER (7:0)                                                       1 MHz Timer
+Wakeup Timer
+068    WAKEUPTIMER1       R    R  −−−−−−−− WAKEUPTIMER (15:8)                                                Wakeup Timer
+069    WAKEUPTIMER0       R    R  −−−−−−−− WAKEUPTIMER (7:0)                                                 Wakeup Timer
+06A    WAKEUP1            RW   R  00000000 WAKEUP (15:8)                                                     Wakeup Time
+06B    WAKEUP0            RW   R  00000000 WAKEUP (7:0)                                                      Wakeup Time
+06C    WAKEUPFREQ1        RW   R  00000000 WAKEUPFREQ (15:8)                                                 Wakeup
+                                                                                                             Frequency
+06D    WAKEUPFREQ0        RW   R  00000000 WAKEUPFREQ (7:0)                                                  Wakeup
+                                                                                                             Frequency
+06E    WAKEUPXOEARLY      RW   R  00000000 WAKEUPXOEARLY (7:0)                                               Wakeup Crystal
+                                                                                                             Oscillator Early
+Physical Layer Parameters
+Receiver Parameters
+100    IFFREQ1            RW   R  00010011 IFFREQ (15:8)                                                     2nd LO / IF
+                                                                                                             Frequency
+101    IFFREQ0            RW   R  00100111 IFFREQ (7:0)                                                      2nd LO / IF
+                                                                                                             Frequency
+102    DECIMATION         RW   R  −0001101 −           DECIMATION (6:0)                                      Decimation
+                                                                                                             Factor
+103    RXDATARATE2        RW   R  00000000 RXDATARATE (23:16)                                                Receiver Datarate
+104    RXDATARATE1        RW   R  00111101 RXDATARATE (15:8)                                                 Receiver Datarate
+105    RXDATARATE0        RW   R  10001010 RXDATARATE (7:0)                                                  Receiver Datarate
+106    MAXDROFFSET2       RW   R  00000000 MAXDROFFSET (23:16)                                               Maximum
+                                                                                                             Receiver Datarate
+                                                                                                             Offset
+107    MAXDROFFSET1       RW   R  00000000 MAXDROFFSET (15:8)                                                Maximum
+                                                                                                             Receiver Datarate
+                                                                                                             Offset
+108    MAXDROFFSET0       RW   R  10011110 MAXDROFFSET (7:0)                                                 Maximum
+                                                                                                             Receiver Datarate
+                                                                                                             Offset
+                                                          www.onsemi.com
+                                                                     24
+                                                            AND9347/D
+Table 22. CONTROL REGISTER MAP(continued)
+Addr                                                                               Bit
+ Hex         Name         Dir  R   Reset      7           6         5        4            3           2         1       0     Description
+Receiver Parameters
+109    MAXRFOFFSET2      RW   R  0−−−0000 FREQ        −       −           −            MAXRFOFFSET (19:16)                Maximum
+                                          OFFS                                                                            Receiver RF
+                                          CORR                                                                            Offset
+10A    MAXRFOFFSET1      RW   R  00010110 MAXRFOFFSET (15:8)                                                              Maximum
+                                                                                                                          Receiver RF
+                                                                                                                          Offset
+10B    MAXRFOFFSET0      RW   R  10000111 MAXRFOFFSET (7:0)                                                               Maximum
+                                                                                                                          Receiver RF
+                                                                                                                          Offset
+10C    FSKDMAX1          RW   R  00000000 FSKDEVMAX (15:8)                                                                Four FSK Rx
+                                                                                                                          Deviation
+10D    FSKDMAX0          RW   R  10000000 FSKDEVMAX (7:0)                                                                 Four FSK Rx
+                                                                                                                          Deviation
+10E    FSKDMIN1          RW   R  11111111 FSKDEVMIN (15:8)                                                                Four FSK Rx
+                                                                                                                          Deviation
+10F    FSKDMIN0          RW   R  10000000 FSKDEVMIN (7:0)                                                                 Four FSK Rx
+                                                                                                                          Deviation
+110    AFSKSPACE1        RW   R  −−−−0000 −           −       −           −            AFSKSPACE(11:8)                    AFSK Space (0)
+                                                                                                                          Frequency
+111    AFSKSPACE0        RW   R  01000000 AFSKSPACE (7:0)                                                                 AFSK Space (0)
+                                                                                                                          Frequency
+112    AFSKMARK1         RW   R  −−−−0000 −           −       −           −            AFSKMARK (11:8)                    AFSK Mark (1)
+                                                                                                                          Frequency
+113    AFSKMARK0         RW   R  01110101 AFSKMARK (7:0)                                                                  AFSK Mark (1)
+                                                                                                                          Frequency
+114    AFSKCTRL          RW   R  −−−00100 −           −       −           AFSKSHIFT0 (4:0)                                AFSK Control
+115    AMPLFILTER        RW   R  −−−−0000 −           −       −           −            AMPLFILTER (3:0)                   Amplitude Filter
+116    FREQUENCYLEAK     RW   R  −−−−0000 −           −       −           −            FREQUENCYLEAK (3:0)                Baseband
+                                                                                                                          Frequency
+                                                                                                                          Recovery Loop
+                                                                                                                          Leakiness
+117    RXPARAMSETS       RW   R  00000000 RXPS3 (1:0)         RXPS2 (1:0)              RXPS1 (1:0)          RXPS0 (1:0)   Receiver
+                                                                                                                          Parameter Set
+                                                                                                                          Indirection
+118    RXPARAMCURSET     R    R  −−−−−−−− −           −       −           RXSI (2)     RXSN (1:0)           RXSI (1:0)    Receiver
+                                                                                                                          Parameter
+                                                                                                                          Current Set
+Receiver Parameter Set 0
+120    AGCGAIN0          RW   R  10110100 AGCDECAY0 (3:0)                              AGCATTACK0 (3:0)                   AGC Speed
+121    AGCTARGET0        RW   R  01110110 AGCTARGET0 (7:0)                                                                AGC Target
+122    AGCAHYST0         RW   R  −−−−−000 −           −       −           −            −           AGCAHYST0 (2:0)        AGC Digital
+                                                                                                                          Threshold Range
+123    AGCMINMAX0        RW   R  −000−000 −           AGCMAXDA0 (2:0)                  −           AGCMINDA0 (2:0)        AGC Digital
+                                                                                                                          Minimum/
+                                                                                                                          Maximum Set
+                                                                                                                          Points
+124    TIMEGAIN0         RW   R  11111000 TIMEGAIN0M (3:0)                             TIMEGAIN0E (3:0)                   Timing Gain
+125    DRGAIN0           RW   R  11110010 DRGAIN0M (3:0)                               DRGAIN0E (3:0)                     Data Rate Gain
+126    PHASEGAIN0        RW   R  11−−0011 FILTERIDX0 (1:0)    −           −            PHASEGAIN0 (3:0)                   Filter Index,
+                                                                                                                          Phase Gain
+127    FREQGAINA0        RW   R  00001111 FREQ        FREQ    FREQ        FREQ         FREQGAINA0 (3:0)                   Frequency Gain A
+                                          LIM0        MODULO  HALFMOD     AMPL
+                                                      0       0           GATE0
+                                                          www.onsemi.com
+                                                                   25
+                                                            AND9347/D
+Table 22. CONTROL REGISTER MAP(continued)
+Addr                                                                        Bit
+ Hex         Name         Dir  R   Reset      7           6       5      4         3           2       1  0     Description
+Receiver Parameter Set 0
+128    FREQGAINB0        RW   R  00−11111 FREQ      FREQ      −       FREQGAINB0 (4:0)                      Frequency Gain B
+                                          FREEZE0   AVG0
+129    FREQGAINC0        RW   R  −−−01010 −         −         −       FREQGAINC0 (4:0)                      Frequency Gain
+                                                                                                            C
+12A    FREQGAIND0        RW   R  0−−01010 RFFREQ    −         −       FREQGAIND0 (4:0)                      Frequency Gain
+                                          FREEZE0                                                           D
+12B    AMPLGAIN0         RW   R  01−−0110 AMPL      AMPL      −       −         AMPLGAIN0 (3:0)             Amplitude Gain
+                                          AVG0      AGC0
+12C    FREQDEV10         RW   R  −−−−0000 −         −         −       −         FREQDEV0 (11:8)             Receiver
+                                                                                                            Frequency
+                                                                                                            Deviation
+12D    FREQDEV00         RW   R  00100000 FREQDEV0 (7:0)                                                    Receiver
+                                                                                                            Frequency
+                                                                                                            Deviation
+12E    FOURFSK0          RW   R  −−−10110 −         −         −       DEV       DEVDECAY0 (3:0)             Four FSK Control
+                                                                      UPDATE0
+12F    BBOFFSRES0        RW   R  10001000 RESINTB0 (3:0)                        RESINTA0 (3:0)              Baseband Offset
+                                                                                                            Compensation
+                                                                                                            Resistors
+Receiver Parameter Set 1
+130    AGCGAIN1          RW   R  10110100 AGCDECAY1 (3:0)                       AGCATTACK1 (3:0)            AGC Speed
+131    AGCTARGET1        RW   R  01110110 AGCTARGET1 (7:0)                                                  AGC Target
+132    AGCAHYST1         RW   R  −−−−−000 −         −         −       −         −         AGCAHYST1 (2:0)   AGC Digital
+                                                                                                            Threshold Range
+133    AGCMINMAX1        RW   R  −000−000 −         AGCMAXDA1 (2:0)             −         AGCMINDA1 (2:0)   AGC Digital
+                                                                                                            Minimum/
+                                                                                                            Maximum Set
+                                                                                                            Points
+134    TIMEGAIN1         RW   R  11110110 TIMEGAIN1M (3:0)                      TIMEGAIN1E (3:0)            Timing Gain
+135    DRGAIN1           RW   R  11110001 DRGAIN1M (3:0)                        DRGAIN1E (3:0)              Data Rate Gain
+136    PHASEGAIN1        RW   R  11−−0011 FILTERIDX1 (1:0)    −       −         PHASEGAIN1 (3:0)            Filter Index,
+                                                                                                            Phase Gain
+137    FREQGAINA1        RW   R  00001111 FREQ      FREQ      FREQ    FREQ      FREQGAINA1 (3:0)            Frequency Gain A
+                                          LIM1      MODULO    HALFMOD AMPL
+                                                    1         1       GATE1
+138    FREQGAINB1        RW   R  00−11111 FREQ      FREQ      −       FREQGAINB1 (4:0)                      Frequency Gain B
+                                          FREEZE1   AVG1
+139    FREQGAINC1        RW   R  −−−01011 −         −         −       FREQGAINC1 (4:0)                      Frequency Gain
+                                                                                                            C
+13A    FREQGAIND1        RW   R  0−−01011 RFFREQ    −         −       FREQGAIND1 (4:0)                      Frequency Gain
+                                          FREEZE1                                                           D
+13B    AMPLGAIN1         RW   R  01−−0110 AMPL      AMPL1     −       −         AMPLGAIN1 (3:0)             Amplitude Gain
+                                          AVG1      AGC1
+13C    FREQDEV11         RW   R  −−−−0000 −         −         −       −         FREQDEV1 (11:8)             Receiver
+                                                                                                            Frequency
+                                                                                                            Deviation
+13D    FREQDEV01         RW   R  00100000 FREQDEV1 (7:0)                                                    Receiver
+                                                                                                            Frequency
+                                                                                                            Deviation
+                                                          www.onsemi.com
+                                                                 26
+                                                            AND9347/D
+Table 22. CONTROL REGISTER MAP(continued)
+Addr                                                                        Bit
+ Hex         Name         Dir  R   Reset      7           6       5      4         3           2       1  0     Description
+Receiver Parameter Set 1
+13E    FOURFSK1          RW   R  −−−11000 −         −         −       DEV       DEVDECAY1 (3:0)             Four FSK Control
+                                                                      UPDATE1
+13F    BBOFFSRES1        RW   R  10001000 RESINTB1 (3:0)                        RESINTA1 (3:0)              Baseband Offset
+                                                                                                            Compensation
+                                                                                                            Resistors
+Receiver Parameter Set 2
+140    AGCGAIN2          RW   R  11111111 AGCDECAY2 (3:0)                       AGCATTACK2 (3:0)            AGC Speed
+141    AGCTARGET2        RW   R  01110110 AGCTARGET2 (7:0)                                                  AGC Target
+142    AGCAHYST2         RW   R  −−−−−000 −         −         −       −         −         AGCAHYST2 (2:0)   AGC Digital
+                                                                                                            Threshold Range
+143    AGCMINMAX2        RW   R  −000−000 −         AGCMAXDA2(2:0)              −         AGCMINDA2 (2:0)   AGC Digital
+                                                                                                            Minimum/
+                                                                                                            Maximum Set
+                                                                                                            Points
+144    TIMEGAIN2         RW   R  11110101 TIMEGAIN2M (3:0)                      TIMEGAIN2E (3:0)            Timing Gain
+145    DRGAIN2           RW   R  11110000 DRGAIN2M (3:0)                        DRGAIN2E (3:0)              Data Rate Gain
+146    PHASEGAIN2        RW   R  11−−0011 FILTERIDX2 (1:0)    −       −         PHASEGAIN2 (3:0)            Filter Index,
+                                                                                                            Phase Gain
+147    FREQGAINA2        RW   R  00001111 FREQ      FREQ      FREQ    FREQ      FREQGAINA2 (3:0)            Frequency Gain A
+                                          LIM2      MODULO    HALFMOD AMPL
+                                                    2         2       GATE2
+148    FREQGAINB2        RW   R  00−11111 FREQ      FREQ      −       FREQGAINB2 (4:0)                      Frequency Gain B
+                                          FREEZE2   AVG2
+149    FREQGAINC2        RW   R  −−−01101 −         −         −       FREQGAINC2 (4:0)                      Frequency Gain
+                                                                                                            C
+14A    FREQGAIND2        RW   R  0−−01101 RFFREQ    −         −       FREQGAIND2 (4:0)                      Frequency Gain
+                                          FREEZE2                                                           D
+14B    AMPLGAIN2         RW   R  01−−0110 AMPL      AMPL      −       −         AMPLGAIN2 (3:0)             Amplitude Gain
+                                          AVG2      AGC2
+14C    FREQDEV12         RW   R  −−−−0000 −         −         −       −         FREQDEV2 (11:8)             Receiver
+                                                                                                            Frequency
+                                                                                                            Deviation
+14D    FREQDEV02         RW   R  00100000 FREQDEV2 (7:0)                                                    Receiver
+                                                                                                            Frequency
+                                                                                                            Deviation
+14E    FOURFSK2          RW   R  −−−11010 −         −         −       DEV       DEVDECAY2 (3:0)             Four FSK Control
+                                                                      UPDATE2
+14F    BBOFFSRES2        RW   R  10001000 RESINTB2 (3:0)                        RESINTA2 (3:0)              Baseband Offset
+                                                                                                            Compensation
+                                                                                                            Resistors
+Receiver Parameter Set 3
+150    AGCGAIN3          RW   R  11111111 AGCDECAY3 (3:0)                       AGCATTACK3 (3:0)            AGC Speed
+151    AGCTARGET3        RW   R  01110110 AGCTARGET3 (7:0)                                                  AGC Target
+152    AGCAHYST3         RW   R  −−−−−000 −         −         −       −         −         AGCAHYST3 (2:0)   AGC Digital
+                                                                                                            Threshold Range
+153    AGCMINMAX3        RW   R  −000−000 −         AGCMAXDA3 (2:0)             −         AGCMINDA3 (2:0)   AGC Digital
+                                                                                                            Minimum/
+                                                                                                            Maximum Set
+                                                                                                            Points
+154    TIMEGAIN3         RW   R  11110101 TIMEGAIN3M (3:0)                      TIMEGAIN3E (3:0)            Timing Gain
+155    DRGAIN3           RW   R  11110000 DRGAIN3M (3:0)                        DRGAIN3E (3:0)              Data Rate Gain
+                                                          www.onsemi.com
+                                                                 27
+                                                            AND9347/D
+Table 22. CONTROL REGISTER MAP(continued)
+Addr                                                                           Bit
+ Hex          Name        Dir  R   Reset      7           6       5          4        3           2    1         0       Description
+Receiver Parameter Set 3
+156    PHASEGAIN3        RW   R  11−−0011 FILTERIDX3 (1:0)    −         −          PHASEGAIN3 (3:0)                  Filter Index,
+                                                                                                                     Phase Gain
+157    FREQGAINA3        RW   R  00001111 FREQ       FREQ     FREQ      FREQ       FREQGAINA3 (3:0)                  Frequency Gain A
+                                          LIM3       MODULO   HALFMOD   AMPL
+                                                     3        3         GATE3
+158    FREQGAINB3        RW   R  00−11111 FREQ       FREQ     −         FREQGAINB3 (4:0)                             Frequency Gain B
+                                          FREEZE3    AVG3
+159    FREQGAINC3        RW   R  −−−01101 −          −        −         FREQGAINC3 (4:0)                             Frequency Gain
+                                                                                                                     C
+15A    FREQGAIND3        RW   R  0−−01101 RFFREQ     −        −         FREQGAIND3 (4:0)                             Frequency Gain
+                                          FREEZE3                                                                    D
+15B    AMPLGAIN3         RW   R  01−−0110 AMPL       AMPL     −         −          AMPLGAIN3 (3:0)                   Amplitude Gain
+                                          AVG3       AGC3
+15C    FREQDEV13         RW   R  −−−−0000 −          −        −         −          FREQDEV3 (11:8)                   Receiver
+                                                                                                                     Frequency
+                                                                                                                     Deviation
+15D    FREQDEV03         RW   R  00100000 FREQDEV3 (7:0)                                                             Receiver
+                                                                                                                     Frequency
+                                                                                                                     Deviation
+15E    FOURFSK3          RW   R  −−−11010 −          −        −         DEV        DEVDECAY3 (3:0)                   Four FSK Control
+                                                                        UPDATE3
+15F    BBOFFSRES3        RW   R  10001000 RESINTB3 (3:0)                           RESINTA3 (3:0)                    Baseband Offset
+                                                                                                                     Compensation
+                                                                                                                     Resistors
+Transmitter Parameters
+160    MODCFGF           RW   R  −−−−−−00 −          −        −         −          −         −      FREQ SHAPE (1:0) Modulator
+                                                                                                                     Configuration F
+161    FSKDEV2           RW   R  00000000 FSKDEV (23:16)                                                             FSK Frequency
+                                                                                                                     Deviation
+162    FSKDEV1           RW   R  00001010 FSKDEV (15:8)                                                              FSK Frequency
+                                                                                                                     Deviation
+163    FSKDEV0           RW   R  00111101 FSKDEV (7:0)                                                               FSK Frequency
+                                                                                                                     Deviation
+164    MODCFGA           RW   R  0000−101 BROWN      PTTLCK   SLOW RAMP (1:0)      −         AMPL   TX SE    TX DIFF Modulator
+                                          GATE       GATE                                    SHAPE                   Configuration A
+165    TXRATE2           RW   R  00000000 TXRATE (23:16)                                                             Transmitter
+                                                                                                                     Bitrate
+166    TXRATE1           RW   R  00101000 TXRATE (15:8)                                                              Transmitter
+                                                                                                                     Bitrate
+167    TXRATE0           RW   R  11110110 TXRATE (7:0)                                                               Transmitter
+                                                                                                                     Bitrate
+168    TXPWRCOEFFA1      RW   R  00000000 TXPWRCOEFFA (15:8)                                                         Transmitter
+                                                                                                                     Predistortion
+                                                                                                                     Coefficient A
+169    TXPWRCOEFFA0      RW   R  00000000 TXPWRCOEFFA (7:0)                                                          Transmitter
+                                                                                                                     Predistortion
+                                                                                                                     Coefficient A
+16A    TXPWRCOEFFB1      RW   R  00001111 TXPWRCOEFFB (15:8)                                                         Transmitter
+                                                                                                                     Predistortion
+                                                                                                                     Coefficient B
+16B    TXPWRCOEFFB0      RW   R  11111111 TXPWRCOEFFB (7:0)                                                          Transmitter
+                                                                                                                     Predistortion
+                                                                                                                     Coefficient B
+                                                          www.onsemi.com
+                                                                 28
+                                                          AND9347/D
+Table 22. CONTROL REGISTER MAP(continued)
+Addr                                                                             Bit
+ Hex           Name     Dir  R   Reset      7          6            5         4         3           2           1       0      Description
+Transmitter Parameters
+16C     TXPWRCOEFFC1   RW   R  00000000 TXPWRCOEFFC (15:8)                                                                  Transmitter
+                                                                                                                            Predistortion
+                                                                                                                            Coefficient C
+16D     TXPWRCOEFFC0   RW   R  00000000 TXPWRCOEFFC (7:0)                                                                   Transmitter
+                                                                                                                            Predistortion
+                                                                                                                            Coefficient C
+16E     TXPWRCOEFFD1   RW   R  00000000 TXPWRCOEFFD (15:8)                                                                  Transmitter
+                                                                                                                            Predistortion
+                                                                                                                            Coefficient D
+16F     TXPWRCOEFFD0   RW   R  00000000 TXPWRCOEFFD (7:0)                                                                   Transmitter
+                                                                                                                            Predistortion
+                                                                                                                            Coefficient D
+170     TXPWRCOEFFE1   RW   R  00000000 TXPWRCOEFFE (15:8)                                                                  Transmitter
+                                                                                                                            Predistortion
+                                                                                                                            Coefficient E
+171     TXPWRCOEFFE0   RW   R  00000000 TXPWRCOEFFE (7:0)                                                                   Transmitter
+                                                                                                                            Predistortion
+                                                                                                                            Coefficient E
+PLL Parameters
+180     PLLVCOI        RW   R  0−010010 VCOIE      −           VCOI (5:0)                                                   VCO Current
+181     PLLVCOIR       RW   R  −−−−−−−− −          −           VCOIR (5:0)                                                  VCO Current
+                                                                                                                            Readback
+182     PLLLOCKDET     RW   R  −−−−−011 LOCKDETDLYR (1:0)      −           −         −          LOCK       LOCKDETDLY (1:0) PLL Lock Detect
+                                                                                                DET                         Delay
+                                                                                                DLYM
+183     PLLRNGCLK      RW   R  −−−−−011 −          −           −           −         −          PLLRNGCLK (2:0)             PLL Ranging
+                                                                                                                            Clock
+Crystal Oscillator
+184     XTALCAP        RW   R  00000000 XTALCAP (7:0)                                                                       Crystal Oscillator
+                                                                                                                            Load Capacitance
+                                                                                                                            Configuration
+Baseband
+188     BBTUNE         RW   R  −−−01001 −          −           −           BB TUNE   BBTUNE (3:0)                           Baseband Tuning
+                                                                           RUN
+189     BBOFFSCAP      RW   R  −111−111 −          CAP INT B (2:0)                   −          CAP INT A (2:0)             Baseband Offset
+                                                                                                                            Compensation
+                                                                                                                            Capacitors
+MAC Layer Parameters
+Packet Format
+200     PKTADDRCFG     RW   R  001−0000 MSB        CRC SKIP    FEC SYNC    −         ADDR POS (3:0)                         Packet Address
+                                        FIRST      FIRST       DIS                                                          Config
+201     PKTLENCFG      RW   R  00000000 LEN BITS (3:0)                               LEN POS (3:0)                          Packet Length
+                                                                                                                            Config
+202     PKTLENOFFSET   RW   R  00000000 LEN OFFSET (7:0)                                                                    Packet Length
+                                                                                                                            Offset
+203     PKTMAXLEN      RW   R  00000000 MAX LEN (7:0)                                                                       Packet Maximum
+                                                                                                                            Length
+204     PKTADDR3       RW   R  00000000 ADDR (31:24)                                                                        Packet Address 3
+205     PKTADDR2       RW   R  00000000 ADDR (23:16)                                                                        Packet Address 2
+206     PKTADDR1       RW   R  00000000 ADDR (15:8)                                                                         Packet Address 1
+207     PKTADDR0       RW   R  00000000 ADDR (7:0)                                                                          Packet Address 0
+                                                       www.onsemi.com
+                                                                   29
+                                                        AND9347/D
+Table 22. CONTROL REGISTER MAP(continued)
+Addr                                                                  Bit
+ Hex          Name    Dir  R   Reset     7          6        5     4          3         2 1 0    Description
+Packet Format
+208     PKTADDRMASK3 RW   R  00000000 ADDRMASK (31:24)                                        Packet Address
+                                                                                              Mask 3
+209     PKTADDRMASK2 RW   R  00000000 ADDRMASK (23:16)                                        Packet Address
+                                                                                              Mask 2
+20A     PKTADDRMASK1 RW   R  00000000 ADDRMASK (15:8)                                         Packet Address
+                                                                                              Mask 1
+20B     PKTADDRMASK0 RW   R  00000000 ADDRMASK (7:0)                                          Packet Address
+                                                                                              Mask 0
+Pattern Match
+210     MATCH0PAT3   RW   R  00000000 MATCH0PAT (31:24)                                       Pattern Match
+                                                                                              Unit 0, Pattern
+211     MATCH0PAT2   RW   R  00000000 MATCH0PAT (23:16)                                       Pattern Match
+                                                                                              Unit 0, Pattern
+212     MATCH0PAT1   RW   R  00000000 MATCH0PAT (15:8)                                        Pattern Match
+                                                                                              Unit 0, Pattern
+213     MATCH0PAT0   RW   R  00000000 MATCH0PAT (7:0)                                         Pattern Match
+                                                                                              Unit 0, Pattern
+214     MATCH0LEN    RW   R  0−−00000 MATCH0   −          −     MATCH0LEN (4:0)               Pattern Match
+                                      RAW                                                     Unit 0, Pattern
+                                                                                              Length
+215     MATCH0MIN    RW   R  −−−00000 −        −          −     MATCH0MIN (4:0)               Pattern Match
+                                                                                              Unit 0, Minimum
+                                                                                              Match
+216     MATCH0MAX    RW   R  −−−11111 −        −          −     MATCH0MAX (4:0)               Pattern Match
+                                                                                              Unit 0, Maximum
+                                                                                              Match
+218     MATCH1PAT1   RW   R  00000000 MATCH1PAT (15:8)                                        Pattern Match
+                                                                                              Unit 1, Pattern
+219     MATCH1PAT0   RW   R  00000000 MATCH1PAT (7:0)                                         Pattern Match
+                                                                                              Unit 1, Pattern
+21C     MATCH1LEN    RW   R  0−−−0000 MATCH1   −          −     −         MATCH1LEN (3:0)     Pattern Match
+                                      RAW                                                     Unit 1, Pattern
+                                                                                              Length
+21D     MATCH1MIN    RW   R  −−−−0000 −        −          −     −         MATCH1MIN (3:0)     Pattern Match
+                                                                                              Unit 1, Minimum
+                                                                                              Match
+21E     MATCH1MAX    RW   R  −−−−1111 −        −          −     −         MATCH1MAX (3:0)     Pattern Match
+                                                                                              Unit 1, Maximum
+                                                                                              Match
+Packet Controller
+220     TMGTXBOOST   RW   R  00110010 TMGTXBOOSTE (2:0)         TMGTXBOOSTM (4:0)             Transmit PLL
+                                                                                              Boost Time
+221     TMGTXSETTLE  RW   R  00001010 TMGTXSETTLEE (2:0)        TMGTXSETTLEM (4:0)            Transmit PLL
+                                                                                              (post Boost)
+                                                                                              Settling Time
+223     TMGRXBOOST   RW   R  00110010 TMGRXBOOSTE (2:0)         TMGRXBOOSTM (4:0)             Receive PLL
+                                                                                              Boost Time
+224     TMGRXSETTLE  RW   R  00010100 TMGRXSETTLEE (2:0)        TMGRXSETTLEM (4:0)            Receive PLL
+                                                                                              (post Boost)
+                                                                                              Settling Time
+225     TMGRXOFFSACQ RW   R  01110011 TMGRXOFFSACQE (2:0)       TMGRXOFFSACQM (4:0)           Receive
+                                                                                              Baseband DC
+                                                                                              Offset Acquisition
+                                                                                              Time
+                                                    www.onsemi.com
+                                                            30
+                                                                AND9347/D
+Table 22. CONTROL REGISTER MAP(continued)
+Addr                                                                                Bit
+ Hex          Name            Dir  R   Reset     7          6         5         4           3       2          1        0        Description
+Packet Controller
+226     TMGRXCOARSEA        RW    R  00111001 TMGRXCOARSEAGCE (2:0)         TMGRXCOARSEAGCM (4:0)                             Receive Coarse
+        GC                                                                                                                    AGC Time
+227     TMGRXAGC            RW    R  00000000 TMGRXAGCE (2:0)               TMGRXAGCM (4:0)                                   Receiver AGC
+                                                                                                                              Settling Time
+228     TMGRXRSSI           RW    R  00000000 TMGRXRSSIE (2:0)              TMGRXRSSIM (4:0)                                  Receiver RSSI
+                                                                                                                              Settling Time
+229     TMGRXPREAMBLE       RW    R  00000000 TMGRXPREAMBLE1E (2:0)         TMGRXPREAMBLE1M (4:0)                             Receiver
+        1                                                                                                                     Preamble 1
+                                                                                                                              Timeout
+22A     TMGRXPREAMBLE       RW    R  00000000 TMGRXPREAMBLE2E (2:0)         TMGRXPREAMBLE2M (4:0)                             Receiver
+        2                                                                                                                     Preamble 2
+                                                                                                                              Timeout
+22B     TMGRXPREAMBLE       RW    R  00000000 TMGRXPREAMBLE3E (2:0)         TMGRXPREAMBLE3M (4:0)                             Receiver
+        3                                                                                                                     Preamble 3
+                                                                                                                              Timeout
+22C     RSSIREFERENCE       RW    R  00000000 RSSIREFERENCE (7:0)                                                             RSSI Offset
+22D     RSSIABSTHR          RW    R  00000000 RSSIABSTHR (7:0)                                                                RSSI Absolute
+                                                                                                                              Threshold
+22E     BGNDRSSIGAIN        RW    R  −−−−0000 −        −          −         −           BGNDRSSIGAIN (3:0)                    Background RSSI
+                                                                                                                              Averaging Time
+                                                                                                                              Constant
+22F     BGNDRSSITHR         RW    R  −−000000 −        −          BGNDRSSITHR (5:0)                                           Background RSSI
+                                                                                                                              Relative
+                                                                                                                              Threshold
+230     PKTCHUNKSIZE        RW    R  −−−−0000 −        −          −         −           PKTCHUNKSIZE (3:0)                    Packet Chunk
+                                                                                                                              Size
+231     PKTMISCFLAGS        RW    R  −−−00000 −        −          −         WOR         AGC      BGND      RXAGC    RXRSSI    Packet Controller
+                                                                            MULTI       SETTL    RSSI      CLK      CLK       Miscellaneous
+                                                                            PKT         DET                                   Flags
+232     PKTSTOREFLAGS       RW    R  −0000000 −        ST ANT     ST CRCB   ST RSSI     ST DR    ST        ST       ST        Packet Controller
+                                                       RSSI                                      RFOFFS    FOFFS    TIMER     Store Flags
+233     PKTACCEPTFLAG       RW    R  −−000000 −        −          ACCPT     ACCPT       ACCPT    ACCPT     ACCPT    ACCPT     Packet Controller
+        S                                                         LRGP      SZF         ADDRF    CRCF      ABRT     RESIDUE   Accept Flags
+Special Functions
+General Purpose ADC
+300     GPADCCTRL           RW    R  −−000000 BUSY     −          0         0           0        GPADC1    CONT     CH ISOL   General Purpose
+                                                                                                 3                            ADC Control
+301     GPADCPERIOD         RW    R  00111111 GPADCPERIOD (7:0)                                                               GPADC Sampling
+                                                                                                                              Period
+308     GPADC13VALUE1       R        −−−−−−−− −        −          −         −           −        −         GPADC13VALUE (9:8) GPADC13 Value
+309     GPADC13VALUE0       R        −−−−−−−− GPADC13VALUE (7:0)                                                              GPADC13 Value
+Low Power Oscillator Calibration
+310     LPOSCCONFIG         RW    R  00000000 LPOSC    LPOSC      LPOSC     LPOSC       LPOSC    LPOSC     LPOSC    LPOSC     Low Power
+                                              OSC      OSC        CALIBR    CALIBF      IRQR     IRQF      FAST     ENA       Oscillator
+                                              INVERT   DOUBLE                                                                 Configuration
+311     LPOSCSTATUS         R     R  −−−−−−−− −        −          −         −           −        −         LPOSC    LPOSC     Low Power
+                                                                                                           IRQ      EDGE      Oscillator Status
+312     LPOSCKFILT1         RW    R  00100000 LPOSCKFILT (15:8)                                                               Low Power
+                                                                                                                              Oscillator
+                                                                                                                              Calibration Filter
+                                                                                                                              Constant
+                                                            www.onsemi.com
+                                                                     31
+                                                               AND9347/D
+Table 22. CONTROL REGISTER MAP(continued)
+Addr                                                                         Bit
+ Hex         Name             Dir  R   Reset     7           6      5      4        3           2   1   0    Description
+Low Power Oscillator Calibration
+313    LPOSCKFILT0          RW    R  11000100 LPOSCKFILT (7:0)                                            Low Power
+                                                                                                          Oscillator
+                                                                                                          Calibration Filter
+                                                                                                          Constant
+314    LPOSCREF1            RW    R  01100001 LPOSCREF (15:8)                                             Low Power
+                                                                                                          Oscillator
+                                                                                                          Calibration
+                                                                                                          Reference
+315    LPOSCREF0            RW    R  10101000 LPOSCREF (7:0)                                              Low Power
+                                                                                                          Oscillator
+                                                                                                          Calibration
+                                                                                                          Reference
+316    LPOSCFREQ1           RW    R  00000000 LPOSCFREQ (9:2)                                             Low Power
+                                                                                                          Oscillator
+                                                                                                          Calibration
+                                                                                                          Frequency
+317    LPOSCFREQ0           RW    R  0000−−−− LPOSCFREQ (1:−2)                   −         −      −   −   Low Power
+                                                                                                          Oscillator
+                                                                                                          Calibration
+                                                                                                          Frequency
+318    LPOSCPER1            RW       −−−−−−−− LPOSCPER (15:8)                                             Low Power
+                                                                                                          Oscillator
+                                                                                                          Calibration Period
+319    LPOSCPER0            RW       −−−−−−−− LPOSCPER (7:0)                                              Low Power
+                                                                                                          Oscillator
+                                                                                                          Calibration Period
+DAC
+330    DACVALUE1            RW    R  −−−−0000 −        −         −       −       DACVALUE (11:8)          DAC Value
+331    DACVALUE0            RW    R  00000000 DACVALUE (7:0)                                              DAC Value
+332    DACCONFIG            RW    R  00−−0000 DAC      DAC CLK   −       −       DACINPUT (3:0)           DAC
+                                              PWM      X2                                                 Configuration
+Performance Tuning Registers
+F00−   PERFTUNE             RW       −−−−−−−−                                                             Performance
+FFF                                                                                                       Tuning Registers
+                                                             www.onsemi.com
+                                                                   32
+   

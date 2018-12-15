@@ -1,0 +1,6 @@
+1. Get Registers mapping in the header and figure out boot-up operations.
+    Attempt 1:
+        AND9347-D.pdf pages 21 - 32 have the Register map, maybe some awk can help.
+        
+        Results:
+            
